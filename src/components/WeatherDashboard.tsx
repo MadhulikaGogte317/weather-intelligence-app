@@ -85,7 +85,11 @@ export function WeatherDashboard() {
   const maxRainProbToday = weatherData ? weatherData.daily.precipitation_probability_max[0] : 0;
   
   const recommendations = weatherData 
-    ? generateRecommendations(weatherData.current_weather.temperature, maxRainProbToday)
+    ? generateRecommendations(
+        weatherData.current_weather.temperature, 
+        maxRainProbToday,
+        weatherData.current_weather.windspeed
+      )
     : [];
 
   return (

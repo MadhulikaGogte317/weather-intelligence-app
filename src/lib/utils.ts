@@ -56,29 +56,31 @@ export function formatTime(timeString: string): string {
 
 export function generateRecommendations(
   currentTemp: number, 
-  maxRainProb: number
+  maxRainProb: number,
+  windSpeed: number
 ): string[] {
   const recommendations: string[] = [];
 
-  if (maxRainProb > 60) {
-    recommendations.push('Carry an umbrella.');
-  }
-  
-  if (currentTemp > 35) {
-    recommendations.push('Stay hydrated.');
+  if (maxRainProb >= 40) {
+    recommendations.push('Carry an umbrella if rain is expected.');
   }
 
-  if (maxRainProb < 20) {
-    recommendations.push('Good day for outdoor activities.');
+  if (currentTemp >= 30) {
+    recommendations.push('Stay hydrated during high temperatures.');
+  } else if (currentTemp <= 15) {
+    recommendations.push('Dress warmly during colder weather.');
   }
 
-  // A couple extra just for fun/logic
-  if (currentTemp < 10) {
-    recommendations.push('Wear a warm coat.');
+  if (windSpeed >= 20) {
+    recommendations.push('Expect windy conditions.');
+  }
+
+  if (maxRainProb < 20 && currentTemp > 15 && currentTemp < 30 && windSpeed < 20) {
+    recommendations.push('Ideal weather for outdoor activities.');
   }
 
   if (recommendations.length === 0) {
-    recommendations.push('Enjoy your day!');
+    recommendations.push('Enjoy your day outside!');
   }
 
   return recommendations;
